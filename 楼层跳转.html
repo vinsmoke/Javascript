@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>楼层跳转</title>
+	<script type="text/javascript" src="js/animate.js"></script>
+	<style type="text/css">
+*{margin:0px; padding:0px;text-decoration:none;list-style:none;}
+	.anxu{width:800px;
+		height:170px;
+		background:#ccc;
+			margin:auto;
+		text-align:center;
+	}
+	.floor{
+		width:800px;
+		height:500px;
+		background:#666;
+		margin:auto;
+		text-align:center;
+		border:1px solid #ccc;
+	}
+	.jump{
+		width:30px;
+		height:160px;
+		position:fixed;
+		top:40px;
+		left:30px;
+		}
+	.jump li{
+		width:29px;
+		height:29px;
+		background:666;
+		border:1px solid #ccc;
+		text-align:center;
+	}
+	.back{
+		width:40px;
+		height:40px;
+		background:blue;
+		position:fixed;
+		bottom:30px;
+		right:60px;
+		line-height:40px;
+		text-align:center;
+		opacity:0;
+		cursor:pointer;
+
+
+	}
+	</style>
+</head>
+<body>
+	<div class="anxu">从这里开始</div>
+	<div class="floor"><img src="" title="image/banner1.jpg"></div>
+	<div class="floor"><img src="" title="image/banner2.jpg"></div>
+	<div class="floor"><img src="" title="image/banner3.jpg"></div>
+	<div class="floor"><img src="" title="image/banner4.jpg"></div>
+	<div class="floor"><img src="" title="image/banner5.jpg"></div>
+<div class="anxu">从这里结束</div>
+	<ul class="jump">
+		<li>1</li>
+		<li>2</li>
+		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+	</ul>
+	<div class="back">返回</div>
+	<div sousuo></div>
+	<script type="text/javascript">
+
+	window.onload=function(){
+		var fl=$(".floor");
+		var flag=true;
+		//alert(fl)
+		var newArr=[];
+		for(var i=0;i<fl.length;i++){
+			newArr.push(fl[i].offsetTop);
+			//alert(newArr.length);
+		}
+		var ch=document.documentElement.clientHeight;
+ var flag1=true
+window.onscroll=function(){
+		var obj=document.body.scrollTop?document.body:document.documentElement;
+		var tops=obj.scrollTop;
+		for( var i=0;i<fl.length;i++){
+			if(tops+ch>=newArr[i]+200){
+				var imgs=$("img",fl[i]);
+				for(var j=0;j<imgs.length;j++){
+					imgs[j].src=imgs[j].title
+				}
+			}
+		}
+		//对应的块跳
+	for(var i=0;i<fl.length;i++){
+	if(tops+ch>=newArr[i]+200){
+		for(var j=0;j<lis.length;j++){
+				lis[j].style.background="#666";
+			}
+			lis[i].style.background="#fff";
+	}			
+	}
+
+			var back=$(".back")[0];
+		 back.onclick=function(){
+		var obj=document.body.scrollTop?document.body:document.documentElement;
+			animate(obj,{scrollTop:0})
+		}
+		
+	//返回顶部
+if(tops>400){
+		if(flag1){
+			flag1=false;		
+		animate(obj,{opacity:1});}
+}else{
+	
+		if(!flag1){
+			flag1=false;		
+		animate(obj,{opacity:0});}
+}
+	}
+
+//楼层跳转
+	var jump=$(".jump")[0];
+	var lis=$("li",jump);
+	var jh=jump.offsetHeight;
+	jump.style.top=(ch-jh)/2+"px"
+
+	for(var i=0;i<lis.length;i++){
+	lis[i].index=i;
+		lis[i].onclick=function(){
+				flag=false;
+			var obj=document.body.scrollTop?document.body:document.documentElement;
+			animate(obj,{scrollTop:fl[this.index].offsetTop},function(){
+				flag=true;
+			});
+			for(var i=0;i<lis.length;i++){
+				lis[i].style.background="#666";
+			}
+			lis[this.index].style.background="#fff"
+		}
+	}
+	
+
+}
+
+
+function $(selecter,ranges){
+  var ranges=ranges?ranges:document;
+	var first=selecter.charAt(0)
+       if(first=="."){
+       return getClass(selecter.substr(1))
+       }else if(first=="#"){
+       return ranges.getElementById(selecter.substr(1))
+       }else if(/^[a-z][a-z1-6]{0,10}$/.test(selecter)){//10 是10位
+       	return ranges.getElementsByTagName(selecter)
+       }else if(/^<[a-z][a-z1-6]{0,10}>$/.test(selecter)){
+          return document.createElement(selecter.slice(1,-1))
+       }
+}
+function getClass(className,range){
+	var range=range?range:document;
+	if(range.getElementsByClassName){//如果游览器里有这个就会返回一个值是在w3c中用
+		return range.getElementsByClassName(className);//获取的是一个范围内指定类名的元素
+	}else{
+		var all=range.getElementsByTagName("*")//获得所有标签的元素
+		var newARR=[];
+		for(var i=0;i<all.length;i++){
+			if(check(all[i].className,className)){
+                 newARR.push(all[i])
+			}
+		}
+             return newARR;
+	}
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>按需加载</title>
+	
+	<style type="text/css">
+	.anxu{width:800px;
+		height:170px;
+		background:#ccc;
+			margin:auto;
+		text-align:center;
+	}
+	.floor{
+		width:800px;
+		height:500px;
+		background:#666;
+		margin:auto;
+		text-align:center;
+		border:1px solid #ccc;
+	}
+	</style>
+</head>
+<body>
+<div class="anxu">从这里开始</div>
+	<div class="floor"><img src="" title="image/banner1.jpg"></div>
+	<div class="floor"><img src="" title="image/banner2.jpg"></div>
+	<div class="floor"><img src="" title="image/banner3.jpg"></div>
+	<div class="floor"><img src="" title="image/banner4.jpg"></div>
+	<div class="floor"><img src="" title="image/banner5.jpg"></div>
+<div class="anxu">从这里结束</div>
+	<script type="text/javascript">
+
+	window.onload=function(){
+		var fl=$(".floor");
+		//alert(fl)
+		var newArr=[];
+		for(var i=0;i<fl.length;i++){
+			newArr.push(fl[i].offsetTop);
+			//alert(newArr.length);
+		}
+		var ch=document.documentElement.clientHeight;
+
+window.onscroll=function(){//浏览器某个对象
+		var obj=document.body.scrollTop?document.body:document.documentElement;
+		var tops=obj.scrollTop;//在谷歌   在火狐是
+		for( var i=0;i<fl.length;i++){//
+			if(tops+ch>=newArr[i]+200){//窗口的可视范围+滚轮>=offsetTop
+				var imgs=$("img",fl[i]);//获取回来所对应的坐标的图片
+				for(var j=0;j<imgs.length;j++){
+					imgs[j].src=imgs[j].title
+				}
+			}
+		}
+		
+	}
+}
+		/*window.onscorll=function(){
+			var obj=document.body.scrollTop?document.body:document.documentElement;
+			var	tops=obj.scrollTop;
+			for(var i=0;i<fl.length;i++){
+			if(tops+ch>=newArr[i]){
+			var imgs=$("img",fl[i]);
+			for(var j=0;j<imgs.length;j++){
+				imgs[j].src=imgs[j].title
+			}
+			}
+		}
+		}
+	}*/
+		function $(selecter,ranges){
+  var ranges=ranges?ranges:document;
+	var first=selecter.charAt(0)
+       if(first=="."){
+       return getClass(selecter.substr(1))
+       }else if(first=="#"){
+       return ranges.getElementById(selecter.substr(1))
+       }else if(/^[a-z][a-z1-6]{0,10}$/.test(selecter)){//10 是10位
+       	return ranges.getElementsByTagName(selecter)
+       }else if(/^<[a-z][a-z1-6]{0,10}>$/.test(selecter)){
+          return document.createElement(selecter.slice(1,-1))
+       }
+}
+function getClass(className,range){
+	var range=range?range:document;
+	if(range.getElementsByClassName){//如果游览器里有这个就会返回一个值是在w3c中用
+		return range.getElementsByClassName(className);//获取的是一个范围内指定类名的元素
+	}else{
+		var all=range.getElementsByTagName("*")//获得所有标签的元素
+		var newARR=[];
+		for(var i=0;i<all.length;i++){
+			if(check(all[i].className,className)){
+                 newARR.push(all[i])
+			}
+		}
+             return newARR;
+	}
+}
+	</script>
+</body>
+</html>

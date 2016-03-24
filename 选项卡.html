@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播</title>
+	<style type="text/css">
+	*{margin:0px; padding:0px;text-decoration:none;list-style:none;}
+	.daohang {width:1200px; height:100px; margin:30px auto;position:absolute;left:50%;margin-left:-400px;}
+	 .li1 ,.li2{
+		list-style:none;
+		float:left;
+		width:159px;
+		height:100px;
+		line-height:100px;
+		margin-right:1px;
+		background:#E4E4E4;
+		text-align:center;
+		position:relative;
+	}
+	.daohang li a{
+		font-size:16px;display:block;
+	}
+	.daohang li a:hover{
+		color:#0085D0;
+		background:#F2EEEE;
+	}
+	.linei{
+		width:1200px;
+		height:50px;
+		position:absolute;
+		top:100px;
+		left:-160px;
+		display:none;
+		
+	}
+	.lineia{
+		float:left;
+		width:159px;
+		height:50px;
+		line-height:50px;
+		background:#F5F1F1;
+		
+	}
+	</style>
+
+</head>
+<body>
+	<script type="text/javascript">
+	window.onload=function(){
+		var lii=document.getElementsByClassName("li2");
+		alert(lii);
+		var lin=document.getElementsByClassName("linei");
+		for(var i=0;i<lii.length;i++){
+			lii[i].index=i;
+			lii[i].onmouseover=function(){
+				for(var j=0;j<lii.length;j++){
+					lin[j].style.display="none"
+				}
+				lin[this.index].style.display="block"
+			}
+			lii[i].onmouseout=function(){
+				for(var j=0;j<lii.length;j++){
+						lin[j].style.display="none"
+				}
+			}
+		}}
+	</script>
+	<div class="daohang">
+		<ul>
+			<li class="li1"><a href="javascript:;" class="li3">首页</a></li>
+			<li class="li2"><a href="javascript:;"class="li3">移动商城</a>
+				<div class="linei">
+					<ul>
+						<li class="lineia"><a href="javascript:;">谁的</a></li>
+						<li class="lineia"><a href="javascript:;">墨迹</a></li>
+						<li class="lineia"><a href="javascript:;">寂寞</a></li>
+						<li class="lineia"><a href="javascript:;">文综</a></li>
+						<li class="lineia"><a href="javascript:;">文章</a></li>
+					</ul>
+				</div>
+			</li>
+			<li class="li2"><a href="javascript:;"class="li3">网上营业厅</a>
+			<div class="linei">
+					<ul>
+						<li class="lineia"><a href="javascript:;">谁的</a></li>
+						<li class="lineia"><a href="javascript:;">墨迹</a></li>
+						<li class="lineia"><a href="javascript:;">寂寞</a></li>
+						<li class="lineia"><a href="javascript:;">文综</a></li>
+						<li class="lineia"><a href="javascript:;">文章</a></li>
+					</ul>
+				</div></li>
+			<li class="li2"><a href="javascript:;"class="li3">移动缴费</a>
+			<div class="linei">
+					<ul>
+						<li class="lineia"><a href="javascript:;">谁的</a></li>
+						<li class="lineia"><a href="javascript:;">墨迹</a></li>
+						<li class="lineia"><a href="javascript:;">寂寞</a></li>
+						<li class="lineia"><a href="javascript:;">文综</a></li>
+						<li class="lineia"><a href="javascript:;">文章</a></li>
+					</ul>
+				</div></li>
+			<li class="li2"><a href="javascript:;"class="li3">服务与支持</a>
+			<div class="linei">
+					<ul>
+						<li class="lineia"><a href="javascript:;">谁的</a></li>
+						<li class="lineia"><a href="javascript:;">墨迹</a></li>
+						<li class="lineia"><a href="javascript:;">寂寞</a></li>
+						<li class="lineia"><a href="javascript:;">文综</a></li>
+						<li class="lineia"><a href="javascript:;">文章</a></li>
+					</ul>
+				</div></li>
+		</ul>
+	</div>
+</body>
+</html>
